@@ -1,0 +1,16 @@
+{
+  "name": "Kcloud",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ ollie041114/Kcloud",
+    "create-local": "graph create --node http://localhost:8020/ ollie041114/Kcloud",
+    "remove-local": "graph remove --node http://localhost:8020/ ollie041114/Kcloud",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 ollie041114/Kcloud"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.22.2",
+    "@graphprotocol/graph-ts": "0.22.1"
+  }
+}
