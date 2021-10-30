@@ -1,0 +1,83 @@
+type Drum @entity {
+  id: ID!
+  sensor: Sensor
+  classification: String
+  type: String 
+  date_unix: BigInt 
+  place_of_occurence: String 
+  dose_rate: BigInt
+  wasteAcceptanceRequest: String 
+  wasteAcceptanceHandover: String
+  currentStatus: String
+  drumHistory: DrumHistory@derivedFrom(field: "drum")
+}
+
+type DrumHistory @entity {
+  id: ID!
+  drum: Drum!
+  inTransitData: InTransitData
+  packagingData: PackagingData
+  temporaryStorageData: TemporaryStorageData
+  takingOverData: TakingOverData
+}
+
+type Sensor @entity {
+  id: ID!
+  drum: Drum
+  sensorData: [SensorData!]@derivedFrom(field: "sensor")
+}
+
+type SensorData @entity {
+  id: ID!
+  sensor: Sensor!
+  currentStatus: String
+  drum: DrumHistory
+  time_recorded: BigInt
+  GPS_longitude: BigInt
+  GPS_Latitude: BigInt
+  accX: BigInt 
+  accZ: BigInt 
+  temp: BigInt 
+  humidity: BigInt 
+  radio: BigInt
+  alarm: String
+}
+
+type InTransitData @entity @key(fields: "id") @key(fields: "drum"){
+  id: ID! 
+  carrier: String
+  date_unix: BigInt 
+  transportation_schedule: String
+  status: String
+  drum: DrumHistory!@derivedFrom(field: "inTransitData")
+}
+
+type PackagingData @entity @key(fields: "id") @key(fields: "drum"){
+  id: ID!
+  drum: DrumHistory!@derivedFrom(field: "packagingData")
+  date_unix: BigInt
+  classification: String
+  type: String 
+  place_of_occurence: String 
+  wasteAcceptanceRequest: String
+}
+
+type TemporaryStorageData @entity @key(fields: "id") @key(fields: "drum") {
+  id: ID!
+  drum: DrumHistory!@derivedFrom(field: "temporaryStorageData")
+  date_unix: BigInt
+  storage_id: BigInt
+  longitude: BigInt 
+  latitude: BigInt 
+  storage_schedule: String 
+}
+
+type TakingOverData @entity @key(fields: "id") @key(fields: "drum"){
+  id: ID!
+  drum: DrumHistory!@derivedFrom(field: "takingOverData")
+  date_unix: BigInt
+  acquisition: String 
+  transferee: String 
+  transportation_schedule: String
+  wasteAcceptanceRequest: String
+}
