@@ -1,12 +1,13 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: kcloud
-    network: ropsten
+    network: mainnet
     source:
-      address: "0x53933243Bb9990603F228Dfdb5bE47a043395443"
+      #address: "0x53933243Bb9990603F228Dfdb5bE47a043395443"
+      address: "0x3FF847D58935e0a7d1E9C5279dc76E33cbd6CC08"
       abi: kcloud
     mapping:
       kind: ethereum/events
