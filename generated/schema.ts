@@ -617,8 +617,6 @@ export class SensorData extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("drum", Value.fromString(""));
   }
 
   save(): void {
@@ -647,13 +645,21 @@ export class SensorData extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get drum(): string {
+  get drum(): string | null {
     let value = this.get("drum");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set drum(value: string) {
-    this.set("drum", Value.fromString(value));
+  set drum(value: string | null) {
+    if (!value) {
+      this.unset("drum");
+    } else {
+      this.set("drum", Value.fromString(<string>value));
+    }
   }
 
   get currentStatus(): string | null {
@@ -809,20 +815,54 @@ export class SensorData extends Entity {
     }
   }
 
-  get alarm(): Array<string> | null {
-    let value = this.get("alarm");
+  get tAlarm(): string | null {
+    let value = this.get("tAlarm");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toStringArray();
+      return value.toString();
     }
   }
 
-  set alarm(value: Array<string> | null) {
+  set tAlarm(value: string | null) {
     if (!value) {
-      this.unset("alarm");
+      this.unset("tAlarm");
     } else {
-      this.set("alarm", Value.fromStringArray(<Array<string>>value));
+      this.set("tAlarm", Value.fromString(<string>value));
+    }
+  }
+
+  get rAlarm(): string | null {
+    let value = this.get("rAlarm");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set rAlarm(value: string | null) {
+    if (!value) {
+      this.unset("rAlarm");
+    } else {
+      this.set("rAlarm", Value.fromString(<string>value));
+    }
+  }
+
+  get aAlarm(): string | null {
+    let value = this.get("aAlarm");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set aAlarm(value: string | null) {
+    if (!value) {
+      this.unset("aAlarm");
+    } else {
+      this.set("aAlarm", Value.fromString(<string>value));
     }
   }
 }

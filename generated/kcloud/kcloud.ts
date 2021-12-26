@@ -27,8 +27,8 @@ export class AlarmDismissedEvent__Params {
     return this._event.parameters[0].value.toString();
   }
 
-  get data_id(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+  get data_id(): string {
+    return this._event.parameters[1].value.toString();
   }
 
   get drum_id(): string {
@@ -197,8 +197,8 @@ export class NewAlarmEvent__Params {
     return this._event.parameters[0].value.toString();
   }
 
-  get data_id(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+  get data_id(): string {
+    return this._event.parameters[1].value.toString();
   }
 
   get alarmType(): string {
@@ -261,8 +261,8 @@ export class SensorDataEvent__Params {
     return this._event.parameters[1].value.toBigInt();
   }
 
-  get data_id(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
+  get data_id(): string {
+    return this._event.parameters[2].value.toString();
   }
 
   get latitude(): BigInt {
@@ -291,8 +291,8 @@ export class SensorDataEvent2__Params {
     this._event = event;
   }
 
-  get data_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get data_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get accZ(): BigInt {
@@ -655,8 +655,8 @@ export class PassSensorDataCall__Inputs {
     this._call = call;
   }
 
-  get data_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get data_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
   get sensor_id(): string {
@@ -829,8 +829,8 @@ export class DismissAlarmCall__Inputs {
     return this._call.inputValues[0].value.toString();
   }
 
-  get data_id(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get data_id(): string {
+    return this._call.inputValues[1].value.toString();
   }
 
   get drum_id(): string {

@@ -160,17 +160,12 @@ export function handleTakingOver(event: TakingOver): void {
     takingOverData.save();
   }
 }
-class Container {
-  data: string | null
-}
-
 export function handleSensorDataEvent(event: SensorDataEvent): void {
+  let test = new Test("1");
+  test.type = "Lolz";
+  test.save();
   let sensorData = new SensorData(event.params.data_id.toString());
   let drum = Drum.load(event.params.drum_id.toString());
-  // if (!sensor) {
-  //   let sensor = new Sensor(event.params.sensor_id.toString());
-  // }
-
   if (drum) {
       sensorData.drum = drum.id;
       let currentStatus = drum.currentStatus;
@@ -238,7 +233,7 @@ export function handlesensorToDrumPairingEvent(event: sensorToDrumPairingEvent):
     }
 }
 export function handleNewAlarmEvent(event: NewAlarmEvent): void{
-    let my_alarm = new Alarm(event.params.alarm_id.toString());
+    let my_alarm = new Alarm(event.params.alarm_id.toString() + event.params.alarmType.toString());
     
     let my_drum = Drum.load(event.params.drum_id.toString());
     if (my_drum){
@@ -248,17 +243,28 @@ export function handleNewAlarmEvent(event: NewAlarmEvent): void{
     let my_sensorDatum = SensorData.load(event.params.data_id.toString());
     if (my_sensorDatum){
       my_alarm.sensorDatum = my_sensorDatum.id;
-      my_sensorDatum.save();
+      my_alarm.type = event.params.alarmType.toString();
+      if (my_alarm.type == "Temperature"){
+          my_sensorDatum.tAlarm = my_alarm.id;
+      }
+      if (my_alarm.type == "Acceleration"){
+        my_sensorDatum.aAlarm = my_alarm.id;
     }
-    my_alarm.type = event.params.alarmType.toString();
+    if (my_alarm.type == "Radioactivity"){
+      my_sensorDatum.rAlarm = my_alarm.id;
+    }
+    my_sensorDatum.save();
+    }
+
     my_alarm.status = "Active";
     my_alarm.message = event.params.alarm.toString();
     my_alarm.save();
 }
 export function handleAlarmDismissedEvent(event: AlarmDismissedEvent): void{
-    let my_alarm = Alarm.load(event.params.data_id.toString());
+    let my_alarm = Alarm.load(event.params.alarm_id.toString());
     if (my_alarm){
-    my_alarm.status = "Dismissed";
-    my_alarm.save();
+      my_alarm.status = "Dismissed";
+      my_alarm.save();
   }
+
 }
