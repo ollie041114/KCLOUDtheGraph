@@ -5,13 +5,24 @@ type Drum @entity {
   type: String 
   date_unix: BigInt 
   place_of_occurence: String 
-  dose_rate: BigInt
+  radioactive_concentration: BigInt
+  pollution_level: BigInt
   wasteAcceptanceRequest: String 
   wasteAcceptanceHandover: String
   currentStatus: String
   drumHistory: DrumHistory@derivedFrom(field: "drum")
+  sensorData: [SensorData!]@derivedFrom(field: "drum")
+  alarms: [Alarm!]@derivedFrom(field: "drum")
 }
 
+type Sensor @entity {
+  id: ID!
+  drum: Drum@derivedFrom(field: "sensor")
+}
+type Test @entity {
+  id: ID!
+  type: String
+}
 type DrumHistory @entity {
   id: ID!
   drum: Drum!
@@ -19,19 +30,22 @@ type DrumHistory @entity {
   packagingData: PackagingData
   temporaryStorageData: TemporaryStorageData
   takingOverData: TakingOverData
+  inTransitData2: InTransitData2
 }
 
-type Sensor @entity {
+type Alarm @entity {
   id: ID!
-  drum: Drum
-  sensorData: [SensorData!]@derivedFrom(field: "sensor")
+  drum: Drum 
+  type: String
+  status: String
+  sensorDatum: SensorData
+  message: String
 }
 
 type SensorData @entity {
   id: ID!
-  sensor: Sensor!
+  drum: Drum!
   currentStatus: String
-  drum: DrumHistory
   time_recorded: BigInt
   GPS_longitude: BigInt
   GPS_Latitude: BigInt
@@ -40,7 +54,7 @@ type SensorData @entity {
   temp: BigInt 
   humidity: BigInt 
   radio: BigInt
-  alarm: String
+  alarm: [Alarm!]@derivedFrom(field: "sensorDatum")
 }
 
 type InTransitData @entity @key(fields: "id") @key(fields: "drum"){
@@ -51,13 +65,23 @@ type InTransitData @entity @key(fields: "id") @key(fields: "drum"){
   status: String
   drum: DrumHistory!@derivedFrom(field: "inTransitData")
 }
+type InTransitData2 @entity @key(fields: "id") @key(fields: "drum"){
+  id: ID! 
+  carrier: String
+  date_unix: BigInt 
+  transportation_schedule: String
+  status: String
+  drum: DrumHistory!@derivedFrom(field: "inTransitData2")
+}
 
 type PackagingData @entity @key(fields: "id") @key(fields: "drum"){
   id: ID!
   drum: DrumHistory!@derivedFrom(field: "packagingData")
   date_unix: BigInt
   classification: String
-  type: String 
+  type: String
+  radioactive_concentration: BigInt 
+  pollution_level: BigInt
   place_of_occurence: String 
   wasteAcceptanceRequest: String
 }

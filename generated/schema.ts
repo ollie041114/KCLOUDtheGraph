@@ -129,8 +129,8 @@ export class Drum extends Entity {
     }
   }
 
-  get dose_rate(): BigInt | null {
-    let value = this.get("dose_rate");
+  get radioactive_concentration(): BigInt | null {
+    let value = this.get("radioactive_concentration");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -138,11 +138,28 @@ export class Drum extends Entity {
     }
   }
 
-  set dose_rate(value: BigInt | null) {
+  set radioactive_concentration(value: BigInt | null) {
     if (!value) {
-      this.unset("dose_rate");
+      this.unset("radioactive_concentration");
     } else {
-      this.set("dose_rate", Value.fromBigInt(<BigInt>value));
+      this.set("radioactive_concentration", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get pollution_level(): BigInt | null {
+    let value = this.get("pollution_level");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set pollution_level(value: BigInt | null) {
+    if (!value) {
+      this.unset("pollution_level");
+    } else {
+      this.set("pollution_level", Value.fromBigInt(<BigInt>value));
     }
   }
 
@@ -211,6 +228,140 @@ export class Drum extends Entity {
       this.unset("drumHistory");
     } else {
       this.set("drumHistory", Value.fromString(<string>value));
+    }
+  }
+
+  get sensorData(): Array<string> | null {
+    let value = this.get("sensorData");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set sensorData(value: Array<string> | null) {
+    if (!value) {
+      this.unset("sensorData");
+    } else {
+      this.set("sensorData", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get alarms(): Array<string> | null {
+    let value = this.get("alarms");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set alarms(value: Array<string> | null) {
+    if (!value) {
+      this.unset("alarms");
+    } else {
+      this.set("alarms", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+}
+
+export class Sensor extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Sensor entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Sensor entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Sensor", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Sensor | null {
+    return changetype<Sensor | null>(store.get("Sensor", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get drum(): string | null {
+    let value = this.get("drum");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set drum(value: string | null) {
+    if (!value) {
+      this.unset("drum");
+    } else {
+      this.set("drum", Value.fromString(<string>value));
+    }
+  }
+}
+
+export class Test extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Test entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Test entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Test", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Test | null {
+    return changetype<Test | null>(store.get("Test", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get type(): string | null {
+    let value = this.get("type");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set type(value: string | null) {
+    if (!value) {
+      this.unset("type");
+    } else {
+      this.set("type", Value.fromString(<string>value));
     }
   }
 }
@@ -325,9 +476,26 @@ export class DrumHistory extends Entity {
       this.set("takingOverData", Value.fromString(<string>value));
     }
   }
+
+  get inTransitData2(): string | null {
+    let value = this.get("inTransitData2");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set inTransitData2(value: string | null) {
+    if (!value) {
+      this.unset("inTransitData2");
+    } else {
+      this.set("inTransitData2", Value.fromString(<string>value));
+    }
+  }
 }
 
-export class Sensor extends Entity {
+export class Alarm extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -335,19 +503,19 @@ export class Sensor extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Sensor entity without an ID");
+    assert(id != null, "Cannot save Alarm entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Sensor entity with non-string ID. " +
+        "Cannot save Alarm entity with non-string ID. " +
           'Considering using .toHex() to convert the "id" to a string.'
       );
-      store.set("Sensor", id.toString(), this);
+      store.set("Alarm", id.toString(), this);
     }
   }
 
-  static load(id: string): Sensor | null {
-    return changetype<Sensor | null>(store.get("Sensor", id));
+  static load(id: string): Alarm | null {
+    return changetype<Alarm | null>(store.get("Alarm", id));
   }
 
   get id(): string {
@@ -376,20 +544,71 @@ export class Sensor extends Entity {
     }
   }
 
-  get sensorData(): Array<string> | null {
-    let value = this.get("sensorData");
+  get type(): string | null {
+    let value = this.get("type");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toStringArray();
+      return value.toString();
     }
   }
 
-  set sensorData(value: Array<string> | null) {
+  set type(value: string | null) {
     if (!value) {
-      this.unset("sensorData");
+      this.unset("type");
     } else {
-      this.set("sensorData", Value.fromStringArray(<Array<string>>value));
+      this.set("type", Value.fromString(<string>value));
+    }
+  }
+
+  get status(): string | null {
+    let value = this.get("status");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set status(value: string | null) {
+    if (!value) {
+      this.unset("status");
+    } else {
+      this.set("status", Value.fromString(<string>value));
+    }
+  }
+
+  get sensorDatum(): string | null {
+    let value = this.get("sensorDatum");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set sensorDatum(value: string | null) {
+    if (!value) {
+      this.unset("sensorDatum");
+    } else {
+      this.set("sensorDatum", Value.fromString(<string>value));
+    }
+  }
+
+  get message(): string | null {
+    let value = this.get("message");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set message(value: string | null) {
+    if (!value) {
+      this.unset("message");
+    } else {
+      this.set("message", Value.fromString(<string>value));
     }
   }
 }
@@ -399,7 +618,7 @@ export class SensorData extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
-    this.set("sensor", Value.fromString(""));
+    this.set("drum", Value.fromString(""));
   }
 
   save(): void {
@@ -428,13 +647,13 @@ export class SensorData extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get sensor(): string {
-    let value = this.get("sensor");
+  get drum(): string {
+    let value = this.get("drum");
     return value!.toString();
   }
 
-  set sensor(value: string) {
-    this.set("sensor", Value.fromString(value));
+  set drum(value: string) {
+    this.set("drum", Value.fromString(value));
   }
 
   get currentStatus(): string | null {
@@ -451,23 +670,6 @@ export class SensorData extends Entity {
       this.unset("currentStatus");
     } else {
       this.set("currentStatus", Value.fromString(<string>value));
-    }
-  }
-
-  get drum(): string | null {
-    let value = this.get("drum");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set drum(value: string | null) {
-    if (!value) {
-      this.unset("drum");
-    } else {
-      this.set("drum", Value.fromString(<string>value));
     }
   }
 
@@ -607,20 +809,20 @@ export class SensorData extends Entity {
     }
   }
 
-  get alarm(): string | null {
+  get alarm(): Array<string> | null {
     let value = this.get("alarm");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toString();
+      return value.toStringArray();
     }
   }
 
-  set alarm(value: string | null) {
+  set alarm(value: Array<string> | null) {
     if (!value) {
       this.unset("alarm");
     } else {
-      this.set("alarm", Value.fromString(<string>value));
+      this.set("alarm", Value.fromStringArray(<Array<string>>value));
     }
   }
 }
@@ -646,6 +848,116 @@ export class InTransitData extends Entity {
 
   static load(id: string): InTransitData | null {
     return changetype<InTransitData | null>(store.get("InTransitData", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get carrier(): string | null {
+    let value = this.get("carrier");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set carrier(value: string | null) {
+    if (!value) {
+      this.unset("carrier");
+    } else {
+      this.set("carrier", Value.fromString(<string>value));
+    }
+  }
+
+  get date_unix(): BigInt | null {
+    let value = this.get("date_unix");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set date_unix(value: BigInt | null) {
+    if (!value) {
+      this.unset("date_unix");
+    } else {
+      this.set("date_unix", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get transportation_schedule(): string | null {
+    let value = this.get("transportation_schedule");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set transportation_schedule(value: string | null) {
+    if (!value) {
+      this.unset("transportation_schedule");
+    } else {
+      this.set("transportation_schedule", Value.fromString(<string>value));
+    }
+  }
+
+  get status(): string | null {
+    let value = this.get("status");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set status(value: string | null) {
+    if (!value) {
+      this.unset("status");
+    } else {
+      this.set("status", Value.fromString(<string>value));
+    }
+  }
+
+  get drum(): string {
+    let value = this.get("drum");
+    return value!.toString();
+  }
+
+  set drum(value: string) {
+    this.set("drum", Value.fromString(value));
+  }
+}
+
+export class InTransitData2 extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save InTransitData2 entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save InTransitData2 entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("InTransitData2", id.toString(), this);
+    }
+  }
+
+  static load(id: string): InTransitData2 | null {
+    return changetype<InTransitData2 | null>(store.get("InTransitData2", id));
   }
 
   get id(): string {
@@ -824,6 +1136,40 @@ export class PackagingData extends Entity {
       this.unset("type");
     } else {
       this.set("type", Value.fromString(<string>value));
+    }
+  }
+
+  get radioactive_concentration(): BigInt | null {
+    let value = this.get("radioactive_concentration");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set radioactive_concentration(value: BigInt | null) {
+    if (!value) {
+      this.unset("radioactive_concentration");
+    } else {
+      this.set("radioactive_concentration", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get pollution_level(): BigInt | null {
+    let value = this.get("pollution_level");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set pollution_level(value: BigInt | null) {
+    if (!value) {
+      this.unset("pollution_level");
+    } else {
+      this.set("pollution_level", Value.fromBigInt(<BigInt>value));
     }
   }
 

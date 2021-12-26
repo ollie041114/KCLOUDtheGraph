@@ -10,6 +10,36 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
+export class AlarmDismissedEvent extends ethereum.Event {
+  get params(): AlarmDismissedEvent__Params {
+    return new AlarmDismissedEvent__Params(this);
+  }
+}
+
+export class AlarmDismissedEvent__Params {
+  _event: AlarmDismissedEvent;
+
+  constructor(event: AlarmDismissedEvent) {
+    this._event = event;
+  }
+
+  get alarm_id(): string {
+    return this._event.parameters[0].value.toString();
+  }
+
+  get data_id(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get drum_id(): string {
+    return this._event.parameters[2].value.toString();
+  }
+
+  get alarm(): string {
+    return this._event.parameters[3].value.toString();
+  }
+}
+
 export class DrumInTransit extends ethereum.Event {
   get params(): DrumInTransit__Params {
     return new DrumInTransit__Params(this);
@@ -23,8 +53,38 @@ export class DrumInTransit__Params {
     this._event = event;
   }
 
-  get drum_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
+  }
+
+  get time(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get carrier(): string {
+    return this._event.parameters[2].value.toString();
+  }
+
+  get transportation_schedule(): string {
+    return this._event.parameters[3].value.toString();
+  }
+}
+
+export class DrumInTransit2 extends ethereum.Event {
+  get params(): DrumInTransit2__Params {
+    return new DrumInTransit2__Params(this);
+  }
+}
+
+export class DrumInTransit2__Params {
+  _event: DrumInTransit2;
+
+  constructor(event: DrumInTransit2) {
+    this._event = event;
+  }
+
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
@@ -53,8 +113,8 @@ export class DrumPackaged__Params {
     this._event = event;
   }
 
-  get drum_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
@@ -77,12 +137,16 @@ export class DrumPackaged__Params {
     return this._event.parameters[5].value.toString();
   }
 
-  get dose_rate(): BigInt {
+  get radioactive_concentration(): BigInt {
     return this._event.parameters[6].value.toBigInt();
   }
 
+  get pollution_level(): BigInt {
+    return this._event.parameters[7].value.toBigInt();
+  }
+
   get waste_acceptance_request(): string {
-    return this._event.parameters[7].value.toString();
+    return this._event.parameters[8].value.toString();
   }
 }
 
@@ -99,8 +163,8 @@ export class GPSDataEvent__Params {
     this._event = event;
   }
 
-  get drum_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
@@ -113,6 +177,40 @@ export class GPSDataEvent__Params {
 
   get latitude(): BigInt {
     return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class NewAlarmEvent extends ethereum.Event {
+  get params(): NewAlarmEvent__Params {
+    return new NewAlarmEvent__Params(this);
+  }
+}
+
+export class NewAlarmEvent__Params {
+  _event: NewAlarmEvent;
+
+  constructor(event: NewAlarmEvent) {
+    this._event = event;
+  }
+
+  get alarm_id(): string {
+    return this._event.parameters[0].value.toString();
+  }
+
+  get data_id(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get alarmType(): string {
+    return this._event.parameters[2].value.toString();
+  }
+
+  get drum_id(): string {
+    return this._event.parameters[3].value.toString();
+  }
+
+  get alarm(): string {
+    return this._event.parameters[4].value.toString();
   }
 }
 
@@ -129,16 +227,16 @@ export class NewDrumEnrolled__Params {
     this._event = event;
   }
 
-  get drum_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
     return this._event.parameters[1].value.toBigInt();
   }
 
-  get sensor_id(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
+  get sensor_id(): string {
+    return this._event.parameters[2].value.toString();
   }
 }
 
@@ -155,8 +253,8 @@ export class SensorDataEvent__Params {
     this._event = event;
   }
 
-  get sensor_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
@@ -231,8 +329,8 @@ export class TakingOver__Params {
     this._event = event;
   }
 
-  get drum_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
@@ -269,8 +367,8 @@ export class TemporaryStorage__Params {
     this._event = event;
   }
 
-  get drum_id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
   }
 
   get time(): BigInt {
@@ -294,41 +392,31 @@ export class TemporaryStorage__Params {
   }
 }
 
+export class sensorToDrumPairingEvent extends ethereum.Event {
+  get params(): sensorToDrumPairingEvent__Params {
+    return new sensorToDrumPairingEvent__Params(this);
+  }
+}
+
+export class sensorToDrumPairingEvent__Params {
+  _event: sensorToDrumPairingEvent;
+
+  constructor(event: sensorToDrumPairingEvent) {
+    this._event = event;
+  }
+
+  get drum_id(): string {
+    return this._event.parameters[0].value.toString();
+  }
+
+  get sensor_id(): string {
+    return this._event.parameters[1].value.toString();
+  }
+}
+
 export class kcloud extends ethereum.SmartContract {
   static bind(address: Address): kcloud {
     return new kcloud("kcloud", address);
-  }
-
-  checkRadio(sensor_id: BigInt, radio: BigInt): string {
-    let result = super.call(
-      "checkRadio",
-      "checkRadio(uint256,uint256):(string)",
-      [
-        ethereum.Value.fromUnsignedBigInt(sensor_id),
-        ethereum.Value.fromUnsignedBigInt(radio)
-      ]
-    );
-
-    return result[0].toString();
-  }
-
-  try_checkRadio(
-    sensor_id: BigInt,
-    radio: BigInt
-  ): ethereum.CallResult<string> {
-    let result = super.tryCall(
-      "checkRadio",
-      "checkRadio(uint256,uint256):(string)",
-      [
-        ethereum.Value.fromUnsignedBigInt(sensor_id),
-        ethereum.Value.fromUnsignedBigInt(radio)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
   }
 }
 
@@ -349,16 +437,16 @@ export class EnrollmentCall__Inputs {
     this._call = call;
   }
 
-  get drum_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
   get time(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get sensor_id(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+  get sensor_id(): string {
+    return this._call.inputValues[2].value.toString();
   }
 }
 
@@ -387,8 +475,8 @@ export class PackagingCall__Inputs {
     this._call = call;
   }
 
-  get drum_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
   get time(): BigInt {
@@ -411,12 +499,16 @@ export class PackagingCall__Inputs {
     return this._call.inputValues[5].value.toString();
   }
 
-  get dose_rate(): BigInt {
+  get radioactive_concentration(): BigInt {
     return this._call.inputValues[6].value.toBigInt();
   }
 
+  get pollution_level(): BigInt {
+    return this._call.inputValues[7].value.toBigInt();
+  }
+
   get waste_acceptance_request(): string {
-    return this._call.inputValues[7].value.toString();
+    return this._call.inputValues[8].value.toString();
   }
 }
 
@@ -445,8 +537,8 @@ export class TransitCall__Inputs {
     this._call = call;
   }
 
-  get drum_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
   get time(): BigInt {
@@ -470,41 +562,79 @@ export class TransitCall__Outputs {
   }
 }
 
-export class CheckRadioCall extends ethereum.Call {
-  get inputs(): CheckRadioCall__Inputs {
-    return new CheckRadioCall__Inputs(this);
+export class Transit2Call extends ethereum.Call {
+  get inputs(): Transit2Call__Inputs {
+    return new Transit2Call__Inputs(this);
   }
 
-  get outputs(): CheckRadioCall__Outputs {
-    return new CheckRadioCall__Outputs(this);
+  get outputs(): Transit2Call__Outputs {
+    return new Transit2Call__Outputs(this);
   }
 }
 
-export class CheckRadioCall__Inputs {
-  _call: CheckRadioCall;
+export class Transit2Call__Inputs {
+  _call: Transit2Call;
 
-  constructor(call: CheckRadioCall) {
+  constructor(call: Transit2Call) {
     this._call = call;
   }
 
-  get sensor_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
-  get radio(): BigInt {
+  get time(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
+
+  get carrier(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get transportation_schedule(): string {
+    return this._call.inputValues[3].value.toString();
+  }
 }
 
-export class CheckRadioCall__Outputs {
-  _call: CheckRadioCall;
+export class Transit2Call__Outputs {
+  _call: Transit2Call;
 
-  constructor(call: CheckRadioCall) {
+  constructor(call: Transit2Call) {
+    this._call = call;
+  }
+}
+
+export class ChangeSensorCall extends ethereum.Call {
+  get inputs(): ChangeSensorCall__Inputs {
+    return new ChangeSensorCall__Inputs(this);
+  }
+
+  get outputs(): ChangeSensorCall__Outputs {
+    return new ChangeSensorCall__Outputs(this);
+  }
+}
+
+export class ChangeSensorCall__Inputs {
+  _call: ChangeSensorCall;
+
+  constructor(call: ChangeSensorCall) {
     this._call = call;
   }
 
-  get value0(): string {
-    return this._call.outputValues[0].value.toString();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
+  }
+
+  get sensor_id(): string {
+    return this._call.inputValues[1].value.toString();
+  }
+}
+
+export class ChangeSensorCall__Outputs {
+  _call: ChangeSensorCall;
+
+  constructor(call: ChangeSensorCall) {
+    this._call = call;
   }
 }
 
@@ -529,8 +659,8 @@ export class PassSensorDataCall__Inputs {
     return this._call.inputValues[0].value.toBigInt();
   }
 
-  get sensor_id(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get sensor_id(): string {
+    return this._call.inputValues[1].value.toString();
   }
 
   get time(): BigInt {
@@ -595,8 +725,8 @@ export class TemporaryStorageCall__Inputs {
     this._call = call;
   }
 
-  get drum_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
   get time(): BigInt {
@@ -645,8 +775,8 @@ export class TakingOverCall__Inputs {
     this._call = call;
   }
 
-  get drum_id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get drum_id(): string {
+    return this._call.inputValues[0].value.toString();
   }
 
   get time(): BigInt {
@@ -674,6 +804,48 @@ export class TakingOverCall__Outputs {
   _call: TakingOverCall;
 
   constructor(call: TakingOverCall) {
+    this._call = call;
+  }
+}
+
+export class DismissAlarmCall extends ethereum.Call {
+  get inputs(): DismissAlarmCall__Inputs {
+    return new DismissAlarmCall__Inputs(this);
+  }
+
+  get outputs(): DismissAlarmCall__Outputs {
+    return new DismissAlarmCall__Outputs(this);
+  }
+}
+
+export class DismissAlarmCall__Inputs {
+  _call: DismissAlarmCall;
+
+  constructor(call: DismissAlarmCall) {
+    this._call = call;
+  }
+
+  get alarm_id(): string {
+    return this._call.inputValues[0].value.toString();
+  }
+
+  get data_id(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get drum_id(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get alarm(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+}
+
+export class DismissAlarmCall__Outputs {
+  _call: DismissAlarmCall;
+
+  constructor(call: DismissAlarmCall) {
     this._call = call;
   }
 }

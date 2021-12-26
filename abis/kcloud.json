@@ -4,9 +4,40 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "alarm_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "drum_id",
+        "name": "data_id",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "alarm",
+        "type": "string"
+      }
+    ],
+    "name": "AlarmDismissedEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -35,9 +66,40 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "carrier",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "transportation_schedule",
+        "type": "string"
+      }
+    ],
+    "name": "DrumInTransit2",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -72,7 +134,13 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "dose_rate",
+        "name": "radioactive_concentration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "pollution_level",
         "type": "uint256"
       },
       {
@@ -90,9 +158,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "drum_id",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -121,9 +189,46 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "alarm_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "drum_id",
+        "name": "data_id",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "alarmType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "alarm",
+        "type": "string"
+      }
+    ],
+    "name": "NewAlarmEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -133,9 +238,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "sensor_id",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "NewDrumEnrolled",
@@ -146,9 +251,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
-        "name": "sensor_id",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -232,9 +337,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "drum_id",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -275,9 +380,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "drum_id",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -314,10 +419,41 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
-      { "internalType": "uint256", "name": "drum_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "time", "type": "uint256" },
-      { "internalType": "uint256", "name": "sensor_id", "type": "uint256" }
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "sensor_id",
+        "type": "string"
+      }
+    ],
+    "name": "sensorToDrumPairingEvent",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "sensor_id",
+        "type": "string"
+      }
     ],
     "name": "enrollment",
     "outputs": [],
@@ -326,17 +462,46 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "drum_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "time", "type": "uint256" },
-      { "internalType": "string", "name": "classification", "type": "string" },
-      { "internalType": "string", "name": "w_type", "type": "string" },
-      { "internalType": "uint256", "name": "date_unix", "type": "uint256" },
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "classification",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "w_type",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "date_unix",
+        "type": "uint256"
+      },
       {
         "internalType": "string",
         "name": "place_of_occurence",
         "type": "string"
       },
-      { "internalType": "uint256", "name": "dose_rate", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "radioactive_concentration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pollution_level",
+        "type": "uint256"
+      },
       {
         "internalType": "string",
         "name": "waste_acceptance_request",
@@ -350,9 +515,21 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "drum_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "time", "type": "uint256" },
-      { "internalType": "string", "name": "carrier", "type": "string" },
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "carrier",
+        "type": "string"
+      },
       {
         "internalType": "string",
         "name": "transportation_schedule",
@@ -366,27 +543,107 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "sensor_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "radio", "type": "uint256" }
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "carrier",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "transportation_schedule",
+        "type": "string"
+      }
     ],
-    "name": "checkRadio",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "name": "transit2",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "data_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "sensor_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "time", "type": "uint256" },
-      { "internalType": "uint256", "name": "latitude", "type": "uint256" },
-      { "internalType": "uint256", "name": "longitude", "type": "uint256" },
-      { "internalType": "uint256", "name": "accX", "type": "uint256" },
-      { "internalType": "uint256", "name": "accY", "type": "uint256" },
-      { "internalType": "uint256", "name": "accZ", "type": "uint256" },
-      { "internalType": "uint256", "name": "temp", "type": "uint256" },
-      { "internalType": "uint256", "name": "humi", "type": "uint256" },
-      { "internalType": "uint256", "name": "radio", "type": "uint256" }
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sensor_id",
+        "type": "string"
+      }
+    ],
+    "name": "changeSensor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "data_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "sensor_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "latitude",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "longitude",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accX",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accY",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accZ",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "temp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "humi",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "radio",
+        "type": "uint256"
+      }
     ],
     "name": "passSensorData",
     "outputs": [],
@@ -395,12 +652,36 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "drum_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "time", "type": "uint256" },
-      { "internalType": "uint256", "name": "longitude", "type": "uint256" },
-      { "internalType": "uint256", "name": "latitude", "type": "uint256" },
-      { "internalType": "uint256", "name": "storage_id", "type": "uint256" },
-      { "internalType": "string", "name": "storage_schedule", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "longitude",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "latitude",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "storage_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "storage_schedule",
+        "type": "string"
+      }
     ],
     "name": "temporaryStorage",
     "outputs": [],
@@ -409,10 +690,26 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "drum_id", "type": "uint256" },
-      { "internalType": "uint256", "name": "time", "type": "uint256" },
-      { "internalType": "string", "name": "acquisition", "type": "string" },
-      { "internalType": "string", "name": "transferee", "type": "string" },
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "acquisition",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "transferee",
+        "type": "string"
+      },
       {
         "internalType": "string",
         "name": "transportation_schedule",
@@ -425,6 +722,34 @@
       }
     ],
     "name": "takingOver",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "alarm_id",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "data_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "drum_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "alarm",
+        "type": "string"
+      }
+    ],
+    "name": "dismissAlarm",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

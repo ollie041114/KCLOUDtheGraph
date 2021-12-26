@@ -11,9 +11,6 @@ import {
   TakingOver,
   TemporaryStorage,
   sensorToDrumPairingEvent,
-  DrumInTransit2,
-  NewAlarmEvent,
-  AlarmDismissedEvent,
 } from "../generated/kcloud/kcloud";
 import {
   Drum,
@@ -24,24 +21,20 @@ import {
   TemporaryStorageData,
   TakingOverData,
   SensorData,
-  InTransitData2,
-  Alarm,
-  Test,
 } from "../generated/schema";
 
 
 export function handleGPSDataEvent(event: GPSDataEvent): void { }
 
 export function handleNewDrumEnrolled(event: NewDrumEnrolled): void {
-  let new_test = new Test("1");
-  new_test.type = "Lol";
-  new_test.save();
   let new_drum = new Drum(event.params.drum_id.toString());
   let new_sensor = new Sensor(event.params.sensor_id.toString());
   new_drum.sensor = new_sensor.id;
+  new_sensor.drum = new_drum.id;
   let drumHistory = new DrumHistory(event.params.drum_id.toString());
   drumHistory.drum = new_drum.id;
   new_drum.currentStatus = "Enrolled";
+
   new_drum.save();
   new_sensor.save();
   drumHistory.save();
@@ -107,32 +100,7 @@ export function handleDrumInTransit(event: DrumInTransit): void {
     my_drum.save();
   }
 }
-export function handleDrumInTransit2 (event: DrumInTransit2): void {
-  let my_drum = Drum.load(event.params.drum_id.toString());
 
-  if (my_drum) {
-    let drumHistory = DrumHistory.load(event.params.drum_id.toString());
-    if (drumHistory == null) {
-      drumHistory = new DrumHistory(event.params.drum_id.toString());
-    }
-    drumHistory.drum = my_drum.id;
-
-    my_drum.currentStatus = "In Transit 2";
-
-    let inTransitData = new InTransitData2(event.params.drum_id.toString());
-    drumHistory.inTransitData = inTransitData.id;
-
-    inTransitData.date_unix = event.params.time;
-    inTransitData.carrier = event.params.carrier;
-    inTransitData.transportation_schedule =
-      event.params.transportation_schedule;
-    //inTransitData.status = event.params.;
-    drumHistory.inTransitData = inTransitData.id;
-    drumHistory.save();
-    inTransitData.save();
-    my_drum.save();
-  }
-}
 export function handleTakingOver(event: TakingOver): void {
   let my_drum = Drum.load(event.params.drum_id.toString());
 
@@ -151,8 +119,11 @@ export function handleTakingOver(event: TakingOver): void {
     takingOverData.date_unix = event.params.time;
     takingOverData.acquisition = event.params.acquisition;
     takingOverData.transferee = event.params.transferee;
-    takingOverData.transportation_schedule = event.params.transportation_schedule;
-    takingOverData.wasteAcceptanceRequest = event.params.waste_acceptance_request;
+    takingOverData.transportation_schedule =
+      event.params.transportation_schedule;
+    takingOverData.wasteAcceptanceRequest =
+      event.params.waste_acceptance_request;
+    //inTransitData.status = event.params.;
     drumHistory.takingOverData = takingOverData.id;
 
     my_drum.save();
@@ -195,6 +166,7 @@ export function handleSensorDataEvent2(event: SensorDataEvent2): void {
     sensorData.temp = event.params.temp;
     sensorData.humidity = event.params.humi;
     sensorData.radio = event.params.radio;
+    sensorData.alarm = event.params.alarm;
     sensorData.save();
   }
 }
@@ -220,8 +192,10 @@ export function handleTemporaryStorage(event: TemporaryStorage): void {
     temporaryStorageData.longitude = event.params.longitude;
     temporaryStorageData.latitude = event.params.latitude;
     temporaryStorageData.storage_schedule = event.params.storage_schedule;
+
     //inTransitData.status = event.params.;
     drumHistory.temporaryStorageData = temporaryStorageData.id;
+
     my_drum.save();
     drumHistory.save();
     temporaryStorageData.save();
@@ -229,36 +203,8 @@ export function handleTemporaryStorage(event: TemporaryStorage): void {
 }
 export function handlesensorToDrumPairingEvent(event: sensorToDrumPairingEvent):  void{
     let my_drum = Drum.load(event.params.drum_id.toString());
-    let my_sensor = Drum.load(event.params.sensor_id.toString());
     if (my_drum){
-      if (my_sensor){ 
-      my_drum.sensor = my_sensor.id;
-    } 
-    my_drum.save();
+      
+      my_drum.sensor = 
     }
-}
-export function handleNewAlarmEvent(event: NewAlarmEvent): void{
-    let my_alarm = new Alarm(event.params.alarm_id.toString());
-    
-    let my_drum = Drum.load(event.params.drum_id.toString());
-    if (my_drum){
-      my_alarm.drum = my_drum.id; 
-      my_drum.save();
-    }
-    let my_sensorDatum = SensorData.load(event.params.data_id.toString());
-    if (my_sensorDatum){
-      my_alarm.sensorDatum = my_sensorDatum.id;
-      my_sensorDatum.save();
-    }
-    my_alarm.type = event.params.alarmType.toString();
-    my_alarm.status = "Active";
-    my_alarm.message = event.params.alarm.toString();
-    my_alarm.save();
-}
-export function handleAlarmDismissedEvent(event: AlarmDismissedEvent): void{
-    let my_alarm = Alarm.load(event.params.data_id.toString());
-    if (my_alarm){
-    my_alarm.status = "Dismissed";
-    my_alarm.save();
-  }
 }
