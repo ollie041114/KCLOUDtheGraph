@@ -10,7 +10,7 @@ dataSources:
       #address: "0x3FF847D58935e0a7d1E9C5279dc76E33cbd6CC08"
       # old one: address: "0x20d2D15866706890f8A1d4f4CaA86119Cbe8EbE8"
       # DORM address: "0xb5f847E01aB88D564Ac427C85D803b645A918E37" 
-      address: "0x5fC7993EA98e50567CCd7f167fd4A70644A1a765"
+      address: "0xDb4Be1a22f05002f6eb0168e0c46AcF4329C59eF"
       #address: "0x60A9B39f21C656448eae333F39D32BA7ab65e383"
       abi: kcloud
       startBlock: 0
