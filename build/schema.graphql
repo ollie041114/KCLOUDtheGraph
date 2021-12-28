@@ -48,7 +48,8 @@ type SensorData @entity {
   time_recorded: BigInt
   GPS_longitude: BigInt
   GPS_Latitude: BigInt
-  accX: BigInt 
+  accX: BigInt
+  accY: BigInt
   accZ: BigInt 
   temp: BigInt 
   humidity: BigInt 

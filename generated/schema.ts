@@ -747,6 +747,23 @@ export class SensorData extends Entity {
     }
   }
 
+  get accY(): BigInt | null {
+    let value = this.get("accY");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set accY(value: BigInt | null) {
+    if (!value) {
+      this.unset("accY");
+    } else {
+      this.set("accY", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
   get accZ(): BigInt | null {
     let value = this.get("accZ");
     if (!value || value.kind == ValueKind.NULL) {

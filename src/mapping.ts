@@ -266,5 +266,4 @@ export function handleAlarmDismissedEvent(event: AlarmDismissedEvent): void{
       my_alarm.status = "Dismissed";
       my_alarm.save();
   }
-
 }
