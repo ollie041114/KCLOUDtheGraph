@@ -253,6 +253,10 @@ export function handleNewAlarmEvent(event: NewAlarmEvent): void{
     if (my_alarm.type == "Radioactivity"){
       my_sensorDatum.rAlarm = my_alarm.id;
     }
+
+    if (my_alarm.type == "GPS"){
+      my_sensorDatum.gAlarm = my_alarm.id;
+    }
     my_sensorDatum.save();
     }
 

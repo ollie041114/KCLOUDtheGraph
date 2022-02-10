@@ -882,6 +882,23 @@ export class SensorData extends Entity {
       this.set("aAlarm", Value.fromString(<string>value));
     }
   }
+
+  get gAlarm(): string | null {
+    let value = this.get("gAlarm");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set gAlarm(value: string | null) {
+    if (!value) {
+      this.unset("gAlarm");
+    } else {
+      this.set("gAlarm", Value.fromString(<string>value));
+    }
+  }
 }
 
 export class InTransitData extends Entity {

@@ -6,7 +6,7 @@ dataSources:
     name: kcloud
     network: mainnet
     source:
-      address: "0xDb4Be1a22f05002f6eb0168e0c46AcF4329C59eF"
+      address: "0x6287386040249E2c9509f7828Eb7066fA59F6471"
       abi: kcloud
       startBlock: 0
     mapping:

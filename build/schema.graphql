@@ -57,6 +57,7 @@ type SensorData @entity {
   tAlarm: Alarm
   rAlarm: Alarm
   aAlarm: Alarm
+  gAlarm: Alarm
 }
 
 type InTransitData @entity @key(fields: "id") @key(fields: "drum"){
